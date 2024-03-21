@@ -2,8 +2,9 @@
 
 namespace Clean.Core.Interfaces;
 
-public interface IInvoiceRepository : IRepository<InvoiceEntity>
+public interface IInvoiceRepository : IRepository<Invoice>
 {
-    Task<IReadOnlyList<InvoiceEntity>> GetByCustomerId(Guid customerId);
-    Task<IReadOnlyList<InvoiceEntity>> GetByDateRange(DateTimeOffset startDate, DateTimeOffset endDate);
+    Task<IReadOnlyList<Invoice>> GetByCustomerId(Guid customerId);
+    Task<IReadOnlyList<Invoice>> GetByDateRange(DateTimeOffset startDate, DateTimeOffset endDate);
+    Task<IReadOnlyList<Invoice>> GetByDateRange(Guid customerId, DateTimeOffset startDate, DateTimeOffset endDate);
 }

@@ -1,8 +1,8 @@
 ﻿namespace Clean.Core.Entities;
 
-public class CustomerEntity
+public class Customer
 {
-    public CustomerEntity(Guid id, string name, string taxNumber, string email, string phone, string address)
+    public Customer(Guid id, string name, string taxNumber, string email, string phone, string address)
     {
         Id = id;
         Name = name;
@@ -18,5 +18,5 @@ public class CustomerEntity
     public string? Email { get; set; }
     public string? Phone { get; set; }
     public string Address { get; set; }
-    public ICollection<InvoiceEntity> Invoices { get; private set; } = new List<InvoiceEntity>();
+    public ICollection<Invoice> Invoices { get; private set; } = new List<Invoice>();
 }

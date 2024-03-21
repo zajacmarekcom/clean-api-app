@@ -1,20 +1,22 @@
 ﻿namespace Clean.Core.Entities;
 
-public class InvoiceItemEntity
+public class InvoiceItem
 {
-    public InvoiceItemEntity(Guid id, Guid invoiceId, string itemName, decimal price, int quantity)
+    public InvoiceItem(Guid id, Invoice invoice, string itemName, decimal price, int quantity)
     {
         Id = id;
-        InvoiceId = invoiceId;
+        Invoice = invoice;
+        InvoiceId = invoice.Id;
         ItemName = itemName;
         Price = price;
         Quantity = quantity;
     }
     
-    public InvoiceItemEntity(Guid invoiceId, string itemName, decimal price, int quantity)
+    public InvoiceItem(Invoice invoice, string itemName, decimal price, int quantity)
     {
         Id = Guid.NewGuid();
-        InvoiceId = invoiceId;
+        Invoice = invoice;
+        InvoiceId = invoice.Id;
         ItemName = itemName;
         Price = price;
         Quantity = quantity;
@@ -22,6 +24,7 @@ public class InvoiceItemEntity
 
     public Guid Id { get; set; }
     public Guid InvoiceId { get; set; }
+    public Invoice Invoice { get; private set; }
     public string ItemName { get; set; }
     public decimal Price { get; set; }
     public int Quantity { get; private set; }

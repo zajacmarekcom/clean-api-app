@@ -1,36 +1,40 @@
 ﻿namespace Clean.Core.Entities;
 
-public class InvoiceEntity
+public class Invoice
 {
-    public InvoiceEntity(Guid customerId, string invoiceNumber, DateTime invoiceDate)
+    public Invoice(Customer customer, string invoiceNumber, DateTime invoiceDate)
     {
         Id = Guid.NewGuid();
-        CustomerId = customerId;
+        Customer = customer;
+        CustomerId = customer.Id;
         InvoiceNumber = invoiceNumber;
         InvoiceDate = invoiceDate;
     }
 
-    public InvoiceEntity(Guid id, Guid customerId, string invoiceNumber, DateTime invoiceDate,
-        List<InvoiceItemEntity> items)
+    public Invoice(Guid id, Customer customer, string invoiceNumber, DateTime invoiceDate,
+        List<InvoiceItem> items)
     {
         Id = id;
-        CustomerId = customerId;
+        Customer = customer;
+        CustomerId = customer.Id;
         InvoiceNumber = invoiceNumber;
         InvoiceDate = invoiceDate;
         _items = items;
     }
 
-    private readonly List<InvoiceItemEntity> _items = [];
+    private readonly List<InvoiceItem> _items = [];
 
     public Guid Id { get; set; }
-    public Guid CustomerId { get; set; }
+    public Guid CustomerId { get; private set; }
+    public Customer Customer { get; private set; }
     public string InvoiceNumber { get; private set; }
     public DateTimeOffset InvoiceDate { get; private set; }
-    public IReadOnlyList<InvoiceItemEntity> Items => _items.AsReadOnly();
+    public IReadOnlyList<InvoiceItem> Items => _items.AsReadOnly();
     public decimal Total => _items.Sum(x => x.Price * x.Quantity);
 
-    public void ChangeCustomer(CustomerEntity customer)
+    public void ChangeCustomer(Customer customer)
     {
+        Customer = customer;
         CustomerId = customer.Id;
     }
     
@@ -39,7 +43,7 @@ public class InvoiceEntity
         InvoiceDate = invoiceDate;
     }
 
-    public void AddItem(InvoiceItemEntity item)
+    public void AddItem(InvoiceItem item)
     {
         _items.Add(item);
     }
@@ -53,7 +57,7 @@ public class InvoiceEntity
         }
     }
 
-    public void UpdateItem(InvoiceItemEntity item)
+    public void UpdateItem(InvoiceItem item)
     {
         var existingItem = _items.FirstOrDefault(x => x.Id == item.Id);
         if (existingItem != null)
