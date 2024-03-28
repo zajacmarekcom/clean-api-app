@@ -2,21 +2,19 @@
 
 public class InvoiceItem
 {
-    public InvoiceItem(Guid id, Invoice invoice, string itemName, decimal price, int quantity)
+    public InvoiceItem(){}
+    
+    public InvoiceItem(Guid id, string itemName, decimal price, int quantity)
     {
         Id = id;
-        Invoice = invoice;
-        InvoiceId = invoice.Id;
         ItemName = itemName;
         Price = price;
         Quantity = quantity;
     }
     
-    public InvoiceItem(Invoice invoice, string itemName, decimal price, int quantity)
+    public InvoiceItem(string itemName, decimal price, int quantity)
     {
         Id = Guid.NewGuid();
-        Invoice = invoice;
-        InvoiceId = invoice.Id;
         ItemName = itemName;
         Price = price;
         Quantity = quantity;

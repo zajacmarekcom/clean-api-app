@@ -2,11 +2,12 @@
 
 public class Invoice
 {
-    public Invoice(Customer customer, string invoiceNumber, DateTime invoiceDate)
+    public Invoice(){}
+    
+    public Invoice(Customer customer, string invoiceNumber, DateTimeOffset invoiceDate)
     {
         Id = Guid.NewGuid();
         Customer = customer;
-        CustomerId = customer.Id;
         InvoiceNumber = invoiceNumber;
         InvoiceDate = invoiceDate;
     }
@@ -16,7 +17,6 @@ public class Invoice
     {
         Id = id;
         Customer = customer;
-        CustomerId = customer.Id;
         InvoiceNumber = invoiceNumber;
         InvoiceDate = invoiceDate;
         _items = items;
@@ -25,8 +25,8 @@ public class Invoice
     private readonly List<InvoiceItem> _items = [];
 
     public Guid Id { get; set; }
-    public Guid CustomerId { get; private set; }
     public Customer Customer { get; private set; }
+    public Guid CustomerId { get; private set; }
     public string InvoiceNumber { get; private set; }
     public DateTimeOffset InvoiceDate { get; private set; }
     public IReadOnlyList<InvoiceItem> Items => _items.AsReadOnly();
@@ -35,7 +35,6 @@ public class Invoice
     public void ChangeCustomer(Customer customer)
     {
         Customer = customer;
-        CustomerId = customer.Id;
     }
     
     public void SetInvoiceDate(DateTimeOffset invoiceDate)
