@@ -3,6 +3,7 @@ using Clean.Database;
 using Clean.Infrastructure;
 using Clean.Presentation.Api;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -61,7 +62,10 @@ builder.Services.AddAuthentication(options =>
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt")["Secret"]!)),
             ClockSkew = TimeSpan.Zero
         };
-    });
+    })
+    .AddBearerToken(IdentityConstants.BearerScheme)
+    .AddIdentityCookies();
+builder.Services.AddAuthorizationBuilder();
 
 var app = builder.Build();
 
@@ -77,5 +81,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapEndpoints();
+app.MapIdentityApi<IdentityUser>();
+
+await app.SeedUsers();
 
 app.Run();

@@ -15,7 +15,7 @@ public class InvoiceItemTests
         var customer = new Customer(Guid.NewGuid(), _faker.Person.FullName, _faker.Random.Int(10000, 99999).ToString(),
             _faker.Person.Email, _faker.Person.Phone, _faker.Address.FullAddress());
         var invoice = new Invoice(customer, _faker.Random.AlphaNumeric(10), _faker.Date.PastOffset());
-        var invoiceItem = new InvoiceItem(invoice, _faker.Commerce.Product(), 10, 1);
+        var invoiceItem = new InvoiceItem(invoice.Id, _faker.Commerce.Product(), 10, 1);
 
         // Act
         Action act = () => invoiceItem.SetQuantity(0);
