@@ -10,9 +10,9 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(cofig =>
+builder.Services.AddSwaggerGen(config =>
 {
-    cofig.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Description = "JWT Authorization token",
         Name = "Authorization",
@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(cofig =>
         Scheme = "bearer",
         BearerFormat = "JWT"
     });
-    cofig.AddSecurityRequirement(
+    config.AddSecurityRequirement(
         new OpenApiSecurityRequirement
         {
             {
@@ -41,31 +41,8 @@ builder.Services.AddDatabase();
 builder.Services.AddLogging();
 builder.Services.AddInfrastructure();
 
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            RequireExpirationTime = true,
-            ValidIssuer = builder.Configuration.GetSection("Jwt")["Issuer"],
-            ValidAudience = builder.Configuration.GetSection("Jwt")["Audience"],
-            IssuerSigningKey =
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt")["Secret"]!)),
-            ClockSkew = TimeSpan.Zero
-        };
-    })
-    .AddBearerToken(IdentityConstants.BearerScheme)
-    .AddIdentityCookies();
 builder.Services.AddAuthorizationBuilder();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>();
 
 var app = builder.Build();
 
@@ -82,7 +59,5 @@ app.UseAuthorization();
 
 app.MapEndpoints();
 app.MapIdentityApi<IdentityUser>();
-
-await app.SeedUsers();
 
 app.Run();

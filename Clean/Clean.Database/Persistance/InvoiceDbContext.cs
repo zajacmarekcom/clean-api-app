@@ -3,8 +3,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Database.Persistance;
 
-public class InvoiceDbContext(DbContextOptions<InvoiceDbContext> options) : DbContext(options)
+public class InvoiceDbContext : DbContext
 {
+    public string DbPath { get; }
+    
+    public InvoiceDbContext()
+    {
+        var folder = Environment.SpecialFolder.LocalApplicationData;
+        var path = Environment.GetFolderPath(folder);
+        DbPath = System.IO.Path.Join(path, "blogging.db");
+    }
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite($"Data Source={DbPath}");
+    }
+
     public required DbSet<Invoice> Invoices { get; set; }
     public required DbSet<Customer> Customers { get; set; }
     

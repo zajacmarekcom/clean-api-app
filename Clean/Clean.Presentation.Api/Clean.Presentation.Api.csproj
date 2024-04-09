@@ -18,4 +18,10 @@
       <ProjectReference Include="..\Clean.Infrastructure\Clean.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Dashboard.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Shared\_Layout.cshtml" />
+    </ItemGroup>
+
 </Project>

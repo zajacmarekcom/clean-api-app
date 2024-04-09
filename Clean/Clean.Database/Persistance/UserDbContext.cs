@@ -4,8 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Database.Persistance;
 
-public class UserDbContext(DbContextOptions<UserDbContext> options) : IdentityDbContext<IdentityUser>(options)
+public class UserDbContext : IdentityDbContext<IdentityUser>
 {
+    public string DbPath { get; }
+    
+    public UserDbContext()
+    {
+        var folder = Environment.SpecialFolder.LocalApplicationData;
+        var path = Environment.GetFolderPath(folder);
+        DbPath = System.IO.Path.Join(path, "blogging.db");
+    }
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite($"Data Source={DbPath}");
+    }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         var adminRole = new IdentityRole("Admin");
