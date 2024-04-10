@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clean.Infrastructure", "Cle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clean.Presentation.Admin", "Clean.Presentation.Admin\Clean.Presentation.Admin.csproj", "{5D0373C9-2BA2-464E-9609-C3329CF7C505}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clean.Presentation.Grpc", "Clean.Presentation.Grpc\Clean.Presentation.Grpc.csproj", "{5B41F1E5-77B2-4687-9941-A2B570904BF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clean.GrpcClient", "Clean.GrpcClient\Clean.GrpcClient.csproj", "{5A5D9AF6-D704-476D-BA7E-B70C1F2893C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +52,13 @@ Global
 		{5D0373C9-2BA2-464E-9609-C3329CF7C505}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D0373C9-2BA2-464E-9609-C3329CF7C505}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D0373C9-2BA2-464E-9609-C3329CF7C505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B41F1E5-77B2-4687-9941-A2B570904BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B41F1E5-77B2-4687-9941-A2B570904BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B41F1E5-77B2-4687-9941-A2B570904BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B41F1E5-77B2-4687-9941-A2B570904BF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A5D9AF6-D704-476D-BA7E-B70C1F2893C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A5D9AF6-D704-476D-BA7E-B70C1F2893C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A5D9AF6-D704-476D-BA7E-B70C1F2893C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A5D9AF6-D704-476D-BA7E-B70C1F2893C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

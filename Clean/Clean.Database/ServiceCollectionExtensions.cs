@@ -40,6 +40,7 @@ public static class ServiceCollectionExtensions
             .AddRoleManager<RoleManager<IdentityRole>>()
             .AddUserManager<UserManager>()
             .AddEntityFrameworkStores<UserDbContext>()
+            .AddDefaultTokenProviders()
             .AddApiEndpoints();
 
         return services;

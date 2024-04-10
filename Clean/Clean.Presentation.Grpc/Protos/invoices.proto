@@ -1,0 +1,93 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Clean.Presentation.Grpc";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/type.proto";
+
+package invoice;
+
+service Invoice {
+  rpc GetAllInvoices (AllInvoicesRequest) returns (InvoicesReply);
+  rpc GetInvoiceDetails (InvoiceDetailsRequest) returns (InvoiceDetailsReply);
+  rpc CreateInvoice (CreateInvoiceRequest) returns (NewInvoiceReply);
+  rpc GetCustomers (empty) returns (CustomersReply);
+}
+
+message empty {}
+
+message AllInvoicesRequest {
+  string userId = 1;
+}
+
+message InvoiceDetailsRequest {
+  string invoiceId = 1;
+}
+
+message CreateInvoiceRequest {
+  string userId = 1;
+  string invoiceNumber = 2;
+  CustomerRequest customer = 3;
+  google.protobuf.Timestamp InvoiceDate = 4;
+  repeated InvoiceItemRequest items = 5;
+}
+
+message InvoiceItemRequest {
+  string itemName = 1;
+  double price = 2;
+  int32 quantity = 3;
+}
+
+message CustomerRequest {
+  optional string id = 1;
+  optional string name = 2;
+  optional string taxNumber = 3;
+  optional string email = 4;
+  optional string phone = 5;
+  optional string address = 6;
+}
+
+message InvoicesReply {
+  repeated InvoiceReply invoice = 1;
+}
+
+message InvoiceReply {
+  string id = 1;
+  string invoiceNumber = 2;
+  string customerName = 3;
+  google.protobuf.Timestamp InvoiceDate = 4;
+  double Total = 5;
+}
+
+message NewInvoiceReply {
+  string id = 1;
+}
+
+message InvoiceDetailsReply {
+  string id = 1;
+  string invoiceNumber = 2;
+  CustomerReply customer = 3;
+  google.protobuf.Timestamp InvoiceDate = 4;
+  double Total = 5;
+  repeated InvoiceItemReply items = 6;
+}
+
+message CustomersReply {
+  repeated CustomerReply customer = 1;
+}
+
+message CustomerReply {
+  string id = 1;
+  string name = 2;
+  string taxNumber = 3;
+  string email = 4;
+  string phone = 5;
+  string address = 6;
+}
+
+message InvoiceItemReply {
+  string id = 1;
+  string itemName = 2;
+  double price = 3;
+  double quantity = 4;
+  double total = 5;
+}

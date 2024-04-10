@@ -1,6 +1,128 @@
-@Clean.Presentation.Api_HostAddress = http://localhost:5141
+###
 
-GET {{Clean.Presentation.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+POST https://localhost:7000/register
+content-type: application/json
+
+{
+    "email": "",
+    "password": ""
+}
 
 ###
+
+POST https://localhost:7000/login?useCookies=false&useSessionCookies=false
+content-type: application/json
+
+{
+    "email": "admin@admin.pl",
+    "password": "Password123!"
+}
+
+###
+
+GET https://localhost:7000/api/invoices
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+###
+
+GET https://localhost:7000/api/<USER_ID>/invoices
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+###
+
+GET https://localhost:7000/api/invoices/<INVOICE_ID>
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+###
+
+GET https://localhost:7000/api/customers
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+###
+
+POST https://localhost:7000/api/invoices
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+{
+  "invoiceDate": "2024-04-10T14:32:12.198Z",
+  "customer": {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "name": "string",
+    "taxNumber": "string",
+    "email": "string",
+    "phone": "string",
+    "address": "string"
+  },
+  "items": [
+    {
+      "name": "string",
+      "price": 0,
+      "quantity": 0
+    }
+  ]
+}
+
+###
+# GRPC Client
+
+POST https://localhost:7003/login?useCookies=false&useSessionCookies=false
+content-type: application/json
+
+{
+    "email": "admin@admin.pl",
+    "password": "Password123!"
+}
+
+###
+
+GET https://localhost:7003/api/invoices
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+###
+
+GET https://localhost:7003/api/<USER_ID>/invoices
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+###
+
+GET https://localhost:7003/api/invoices/<INVOICE_ID>
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+###
+
+GET https://localhost:7003/api/customers
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+###
+
+POST https://localhost:7003/api/invoices
+content-type: application/json
+authorization: Bearer <TOKEN>
+
+{
+  "invoiceDate": "2024-04-10T14:32:12.198Z",
+  "customer": {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "name": "string",
+    "taxNumber": "string",
+    "email": "string",
+    "phone": "string",
+    "address": "string"
+  },
+  "items": [
+    {
+      "name": "string",
+      "price": 0,
+      "quantity": 0
+    }
+  ]
+}
