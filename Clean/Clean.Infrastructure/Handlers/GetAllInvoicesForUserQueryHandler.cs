@@ -12,7 +12,10 @@ public class GetAllInvoicesForUserQueryHandler(InvoiceDbContext context)
     public async Task<IEnumerable<InvoiceDto>> Handle(GetAllInvoicesForUserQuery request,
         CancellationToken cancellationToken)
     {
-        var invoices = await context.Invoices.Include(x => x.Customer).Where(x => x.Customer.Id == request.UserId)
+        var invoices = await context.Invoices
+            .Include(x => x.Customer)
+            .Include(x => x.Items)
+            .Where(x => x.UserId == request.UserId)
             .Select(x => new InvoiceDto(x.Id, x.InvoiceNumber, x.Customer.Name, x.InvoiceDate, x.Total)).ToListAsync();
 
         return invoices;

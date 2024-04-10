@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Clean.Application.Queries;
 
-public record GetAllInvoicesForUserQuery(Guid UserId) : IRequest<IEnumerable<InvoiceDto>>;
+public record GetAllInvoicesForUserQuery(string UserId) : IRequest<IEnumerable<InvoiceDto>>;

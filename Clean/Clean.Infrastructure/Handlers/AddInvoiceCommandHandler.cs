@@ -11,7 +11,7 @@ public class AddInvoiceCommandHandler(IInvoiceRepository invoiceRepository, ICus
     public async Task<Guid> Handle(AddInvoiceCommand request, CancellationToken cancellationToken)
     {
         Customer customer = await GetOrCreateCustomer(request);
-        Invoice invoice = new(customer, Guid.NewGuid().ToString(), request.InvoiceDate);
+        Invoice invoice = new(request.UserId, customer, Guid.NewGuid().ToString(), request.InvoiceDate);
 
         var items = request.Items.Select(x => new InvoiceItem(x.Name, x.Price, x.Quantity)).ToList();
         foreach (var item in items)

@@ -4,18 +4,20 @@ public class Invoice
 {
     public Invoice(){}
     
-    public Invoice(Customer customer, string invoiceNumber, DateTimeOffset invoiceDate)
+    public Invoice(string userId, Customer customer, string invoiceNumber, DateTimeOffset invoiceDate)
     {
         Id = Guid.NewGuid();
+        UserId = userId;
         Customer = customer;
         InvoiceNumber = invoiceNumber;
         InvoiceDate = invoiceDate;
     }
 
-    public Invoice(Guid id, Customer customer, string invoiceNumber, DateTime invoiceDate,
+    public Invoice(Guid id, string userId, Customer customer, string invoiceNumber, DateTime invoiceDate,
         List<InvoiceItem> items)
     {
         Id = id;
+        UserId = userId;
         Customer = customer;
         InvoiceNumber = invoiceNumber;
         InvoiceDate = invoiceDate;
@@ -25,6 +27,7 @@ public class Invoice
     private readonly List<InvoiceItem> _items = [];
 
     public Guid Id { get; set; }
+    public string UserId { get; private set; }
     public Customer Customer { get; private set; }
     public Guid CustomerId { get; private set; }
     public string InvoiceNumber { get; private set; }

@@ -1,10 +1,7 @@
-using System.Text;
 using Clean.Database;
 using Clean.Infrastructure;
 using Clean.Presentation.Api;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,7 +39,10 @@ builder.Services.AddTokenIdentity();
 builder.Services.AddLogging();
 builder.Services.AddInfrastructure();
 
-builder.Services.AddAuthorizationBuilder();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+});
 builder.Services.AddIdentityApiEndpoints<IdentityUser>();
 
 var app = builder.Build();

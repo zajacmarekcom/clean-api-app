@@ -2,6 +2,9 @@
 
 public record InvoiceItemDto(
     Guid Id,
+    string ItemName,
     decimal Quantity,
-    decimal Price,
-    decimal Total);
+    decimal Price)
+{
+    public decimal Total => Quantity * Price;
+}

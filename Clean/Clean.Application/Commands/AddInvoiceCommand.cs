@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Clean.Application.Commands;
 
-public record AddInvoiceCommand(DateTimeOffset InvoiceDate, NewCustomerDto Customer, List<NewInvoiceItemDto> Items)
+public record AddInvoiceCommand(string UserId, DateTimeOffset InvoiceDate, NewCustomerDto Customer, List<NewInvoiceItemDto> Items)
     : IRequest<Guid>;
