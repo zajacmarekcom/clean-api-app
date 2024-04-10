@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Clean.Database.Migrations.InvoiceDb
+namespace Clean.Database.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

@@ -1,11 +1,15 @@
-﻿@page "/dashboard"
+﻿@page
 @model Clean.Presentation.Admin.Pages.Dashboard
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     Layout = "Shared/_Layout";
 }
 
 <h2>Dashboard</h2>
+<form method="post" asp-page-handler="Logout">
+    <button type="submit" class="btn btn-info">Log out</button>
+</form>
 
 <div class="row w-100 mt-6">
     <div class="col col-2"></div>
@@ -19,13 +23,19 @@
             </tr>
             </thead>
             <tbody>
-                @foreach (var user in Model.Users)
-                {
-                    <tr>
-                        <td>@user.Email</td>
-                        <td>@user.Role</td>
-                    </tr>
-                }
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@string.Join(", ", user.Roles)</td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" asp-for="User!.Email" value="@user.Email"/>
+                            <button type="submit" class=" w-100 btn btn-warning">Toggle admin role</button>
+                        </form>
+                    </td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>

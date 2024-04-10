@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Clean.Database.Migrations.InvoiceDb
+namespace Clean.Database.Migrations
 {
     [DbContext(typeof(InvoiceDbContext))]
     partial class InvoiceDbContextModelSnapshot : ModelSnapshot

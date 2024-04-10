@@ -21,8 +21,11 @@ public class UserManager : UserManager<IdentityUser>
     public override async Task<IdentityResult> CreateAsync(IdentityUser user, string password)
     {
         var result = await base.CreateAsync(user, password);
-        var role = await _roleManager.FindByNameAsync("User");
-        await AddToRoleAsync(user,role.Name);
+        if (result.Succeeded)
+        {
+            var roles = _roleManager.Roles.ToList();
+            await AddToRoleAsync(user, "User");
+        }
 
         return result;
     }

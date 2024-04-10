@@ -38,6 +38,7 @@ builder.Services.AddSwaggerGen(config =>
         });
 });
 builder.Services.AddDatabase();
+builder.Services.AddTokenIdentity();
 builder.Services.AddLogging();
 builder.Services.AddInfrastructure();
 

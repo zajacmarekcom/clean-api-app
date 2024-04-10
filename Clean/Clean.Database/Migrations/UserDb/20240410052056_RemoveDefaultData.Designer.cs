@@ -3,16 +3,19 @@ using System;
 using Clean.Database.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Clean.Database.Migrations
+namespace Clean.Database.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240410052056_RemoveDefaultData")]
+    partial class RemoveDefaultData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
@@ -41,18 +44,6 @@ namespace Clean.Database.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "d0b8cd71-5acc-43eb-b8d6-a2d2ab4998f9",
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = "c521c53f-3a2d-4198-a4cb-de89e7d6144c",
-                            Name = "User"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -140,24 +131,6 @@ namespace Clean.Database.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "d258edcf-b99b-461e-a3c2-60ef9ceff4c9",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "af61fa06-63e8-465d-b298-409e3fb11116",
-                            Email = "admin@admin.pl",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@ADMIN.PL",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO4vSE+bhKtV/YgJ0dvqROrEHKDFLYkhALZC/K1/zbbXuvbB8NcJAenNb353z4KEIw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c78b1d8d-3850-4074-ad98-51e45738d6af",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -218,13 +191,6 @@ namespace Clean.Database.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "d258edcf-b99b-461e-a3c2-60ef9ceff4c9",
-                            RoleId = "d0b8cd71-5acc-43eb-b8d6-a2d2ab4998f9"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

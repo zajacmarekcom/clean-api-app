@@ -5,23 +5,30 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRazorPages();
+
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizePage("/Dashboard", "Admin");
+});
+
+builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
+    .AddIdentityCookies(options =>
+    {
+        options.ApplicationCookie.Configure(cfg =>
+        {
+            cfg.LoginPath = "/";
+            cfg.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        });
+    });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+});
 
 builder.Services.AddDatabase();
+builder.Services.AddCookieIdentity();
 builder.Services.AddLogging();
 builder.Services.AddInfrastructure();
-
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    })
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-    {
-        options.LoginPath = "/";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-    })
-    .AddIdentityCookies();
 
 var app = builder.Build();
 
@@ -38,9 +45,10 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseAntiforgery();
 
 app.MapRazorPages();
 
-await app.SeedUsers();
+await app.MigrateDb();
 
 app.Run();

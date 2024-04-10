@@ -3,6 +3,7 @@ using Clean.Database.Persistance;
 using Clean.Database.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Clean.Database;
@@ -13,17 +14,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContext<InvoiceDbContext>();
         services.AddDbContext<UserDbContext>();
-        services.AddIdentityCore<IdentityUser>()
-            .AddRoles<IdentityRole>()
-            .AddUserManager<UserManager>()
-            .AddEntityFrameworkStores<UserDbContext>()
-            .AddApiEndpoints()
-            .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("TOKENPROVIDER");
-
-        services.Configure<DataProtectionTokenProviderOptions>(options =>
-        {
-            options.TokenLifespan = TimeSpan.FromHours(3);
-        });
 
         services.AddScoped<IInvoiceRepository, InvoiceRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -31,10 +21,45 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static async Task SeedUsers(this WebApplication app)
+    public static IServiceCollection AddCookieIdentity(this IServiceCollection services)
+    {
+        services.AddIdentityCore<IdentityUser>()
+            .AddRoles<IdentityRole>()
+            .AddRoleManager<RoleManager<IdentityRole>>()
+            .AddUserManager<UserManager>()
+            .AddSignInManager()
+            .AddEntityFrameworkStores<UserDbContext>();
+
+        return services;
+    }
+    
+    public static IServiceCollection AddTokenIdentity(this IServiceCollection services)
+    {
+        services.AddIdentityCore<IdentityUser>()
+            .AddRoles<IdentityRole>()
+            .AddRoleManager<RoleManager<IdentityRole>>()
+            .AddUserManager<UserManager>()
+            .AddEntityFrameworkStores<UserDbContext>()
+            .AddApiEndpoints();
+
+        return services;
+    }
+
+    public static async Task MigrateDb(this WebApplication app)
     {
         var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
         using var scope = scopeFactory.CreateScope();
+
+        var invoiceDb = scope.ServiceProvider.GetRequiredService<InvoiceDbContext>();
+        await invoiceDb.Database.MigrateAsync();
+        var userDb = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+        await userDb.Database.MigrateAsync();
+        
+        if (userDb.Users.Any())
+        {
+            return;
+        }
+        
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 

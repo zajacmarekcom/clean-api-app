@@ -9,12 +9,10 @@ namespace Clean.Presentation.Admin.Pages;
 [AllowAnonymous]
 public class Index : PageModel
 {
-    private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
 
-    public Index(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public Index(SignInManager<IdentityUser> signInManager)
     {
-        _userManager = userManager;
         _signInManager = signInManager;
     }
 
@@ -41,7 +39,7 @@ public class Index : PageModel
             return Page();
         }
 
-        return RedirectToPage("/Dashboard");
+        return RedirectToPage("Dashboard");
     
     }
 }

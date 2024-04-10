@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Clean.Database.Migrations
+namespace Clean.Database.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20240409185641_Init")]
+    [Migration("20240409200921_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -48,12 +48,12 @@ namespace Clean.Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d0b8cd71-5acc-43eb-b8d6-a2d2ab4998f9",
+                            Id = "a1878954-ff6e-406a-acaa-27ba0a628358",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "c521c53f-3a2d-4198-a4cb-de89e7d6144c",
+                            Id = "232fc559-2d3f-4de5-a1c8-b2779e58262e",
                             Name = "User"
                         });
                 });
@@ -147,19 +147,17 @@ namespace Clean.Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d258edcf-b99b-461e-a3c2-60ef9ceff4c9",
+                            Id = "bfbd89d5-ef2d-4dc1-86cb-fea44d40cb59",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "af61fa06-63e8-465d-b298-409e3fb11116",
-                            Email = "admin@admin.pl",
+                            ConcurrencyStamp = "af71f6de-b91f-4d2e-90d0-6ea70bb7cf26",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@ADMIN.PL",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO4vSE+bhKtV/YgJ0dvqROrEHKDFLYkhALZC/K1/zbbXuvbB8NcJAenNb353z4KEIw==",
+                            NormalizedUserName = "ADMIN@ADMIN.PL",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMuwGLcDcRQeSCgVsxGTdUMs1aYePPJxc/0Vn13nS4AJ6I+4flgTP1pAy32XlvBVYA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c78b1d8d-3850-4074-ad98-51e45738d6af",
+                            SecurityStamp = "4a8c1d94-512c-4822-96b9-ff3294079c95",
                             TwoFactorEnabled = false,
-                            UserName = "admin"
+                            UserName = "admin@admin.pl"
                         });
                 });
 
@@ -225,8 +223,8 @@ namespace Clean.Database.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "d258edcf-b99b-461e-a3c2-60ef9ceff4c9",
-                            RoleId = "d0b8cd71-5acc-43eb-b8d6-a2d2ab4998f9"
+                            UserId = "bfbd89d5-ef2d-4dc1-86cb-fea44d40cb59",
+                            RoleId = "a1878954-ff6e-406a-acaa-27ba0a628358"
                         });
                 });
 
